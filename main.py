@@ -4,22 +4,7 @@ from sistemas.telas import Telas as t
 from sistemas.funcoes import Funcoes as f
 
 
-
-
-
-
-
-
-cabeca_atvdSECU = ['Cód.', 'Descrição']
-atvdSECU = list()
-        
-cabeca_socios = ['Qualificação', 'Nome']
-socios = [["47.72-5-00", "Comércio varejista de cosméticos, produtos\n de perfumaria e de higiene pessoal"], ["teste3", "teste4"]]
-
-
-telaPrincipal = t.tela_principal(socios, cabeca_socios, cabeca_atvdSECU, atvdSECU)
-
-
+telaPrincipal = t.tela_principal()
 
 while True:
     janela, evento, valor = sg.read_all_windows()

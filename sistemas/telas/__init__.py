@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 
 
 class Telas:
-    def tela_principal(socios, cabeca_socios, cabeca_atvdSECU, atvdSECU):
+    def tela_principal():
         
         font = ("Futura, 14")
         
@@ -12,7 +12,6 @@ class Telas:
         ]
         
         dados = [
-            
             [sg.Text('Atualizado em', font=font, size=(12,1)), sg.Input(readonly=True, border_width=0, key='-ULTIMA_ATUALIZACAO-', size=(15,1)),
              sg.Text('Tipo', font=font, size=(8,1)), sg.Input(readonly=True, border_width=0, key='-TIPO-', size=(15,1)),],
             [sg.Text('Abertura', font=font, size=(12,1)), sg.Input(readonly=True, border_width=0, key='-ABERTURA-', size=(15,1)),
@@ -41,13 +40,11 @@ class Telas:
              sg.Input(readonly=True, border_width=0, key='-TELEFONE-', size=(46,1))],
         ]   
         
-        
         layout = [
             [sg.Column(CNPJ, justification='center')],
             [sg.HSep()],
             [sg.Column(dados, scrollable=True,  vertical_scroll_only=True, size=(500,500))]
         ]
         
-        
         return sg.Window('Consultar CNPJ', layout=layout, finalize=True)
-    pass
+    
