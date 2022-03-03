@@ -28,7 +28,7 @@ while True:
         break
     
     if evento == '-PESQUISAR-':
-        cnpj = '13004510025920'
+        cnpj = valor['-CNPJ-']
         req = requests.get(f'https://receitaws.com.br/v1/cnpj/{cnpj}')
         dados = req.json()
         
