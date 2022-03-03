@@ -1,7 +1,7 @@
 import requests
 import PySimpleGUI as sg
 from sistemas.telas import Telas as t 
-
+from sistemas.funcoes import Funcoes as f
 
 
 
@@ -28,78 +28,73 @@ while True:
         break
     
     if evento == '-PESQUISAR-':
-        cnpj = valor['-CNPJ-']
-        req = requests.get(f'https://receitaws.com.br/v1/cnpj/{cnpj}')
-        dados = req.json()
+        cnpj = valor['-CNPJ-'].strip()
         
-        print(dados)
-        #Ultima atualização
-        apoio = dados['ultima_atualizacao'].split('T')
-        separado = apoio[0]
+        if len(cnpj) < 14 or len(cnpj) > 14:
+            sg.popup('Digite o CNPJ nesse formato: XXXXXXXXXXXXXX\nApenas 14 Caracteres!', title='CNPJ INVÁLIDO')
+        else:
+            dados = f.recuperar_dados(valor)
 
-    
-        #Tipo
-        tipo = dados['tipo']
+            #Ultima atualização
+            apoio = dados['ultima_atualizacao'].split('T')
+            separado = apoio[0]
 
-        #Abertura
-        abertura = dados['abertura']
+            #Tipo
+            tipo = dados['tipo']
 
-        #Porte
-        porte = dados['porte']
+            #Abertura
+            abertura = dados['abertura']
 
-        #Razão Social
-        razao_social = dados['nome']
+            #Porte
+            porte = dados['porte']
 
-        #Nome Fantasia
-        nome_fantasia = dados['fantasia']
+            #Razão Social
+            razao_social = dados['nome']
 
-        #Atvd Principal
-        atvd_principal = dados['atividade_principal'][0]['text']
+            #Nome Fantasia
+            nome_fantasia = dados['fantasia']
 
-        #Atvds Secundarias // possivelmente vou precisar por no laço for, contudo preciso aprender a dimensionar a table
+            #Atvd Principal
+            atvd_principal = dados['atividade_principal'][0]['text']
+            
+            #Situação Atual
+            sit_atual = dados['situacao']
+
+            #Logradouro
+            rua = dados['logradouro']
+
+            #nª
+            numero = dados['numero']
+
+            #Bairro
+            bairro = dados['bairro']
+
+            #UF
+            uf = dados['uf']
+
+            #Complemento
+            complemento = dados['complemento']
+
+            #E-mail
+            email = dados['email']
+
+            #Telefone
+            telefone = dados['telefone']
+            
+            #Natureza Jurídica
+            NJ = dados['natureza_juridica'].split('-')
+            natureza_juridica = NJ[-1].strip()
+
+            janela['-ULTIMA_ATUALIZACAO-'].update(separado); janela['-TIPO-'].update(tipo)
+            janela['-ABERTURA-'].update(abertura); janela['-PORTE-'].update(porte)
+            janela['-RAZAO_SOCIAL-'].update(razao_social); janela['-NOME_FANTASIA-'].update(nome_fantasia)
+            janela['-ATIVIDADE_PRINCIPAL-'].update(atvd_principal)
+            janela['-SITUACAO_ATUAL-'].update(sit_atual); janela['-LOGRADOURO-'].update(rua)
+            janela['-NUMERO-'].update(numero); janela['-BAIRRO-'].update(bairro); 
+            janela['-UF-'].update(uf); janela['-EMAIL-'].update(email)
+            janela['-TELEFONE-'].update(telefone); janela['-COMPLEMENTO-'].update(complemento)
+            janela['-NATUREZA_JURIDICA-'].update(natureza_juridica)
         
-        atvdSECU.append(dados['atividades_secundarias'][0]['text'])
-        atvdSECU.append(dados['atividades_secundarias'][0]['code'])
-
-        #Situação Atual
-        sit_atual = dados['situacao']
-
-        #Logradouro
-        rua = dados['logradouro']
-
-        #nª
-        numero = dados['numero']
-
-        #Bairro
-        bairro = dados['bairro']
-
-        #UF
-        uf = dados['uf']
-
-        #Complemento
-        complemento = dados['complemento']
-
-        #E-mail
-        email = dados['email']
-
-        #Telefone
-        telefone = dados['telefone']
-
-        #Socio ADM
-        socio_adm = dados['qsa'][0]['nome']
-
-
-        #Demais Sócios
-
-        janela['-ULTIMA_ATUALIZACAO-'].update(separado); janela['-TIPO-'].update(tipo)
-        janela['-ABERTURA-'].update(abertura); janela['-PORTE-'].update(porte)
-        janela['-RAZAO_SOCIAL-'].update(razao_social); janela['-NOME_FANTASIA-'].update(nome_fantasia)
-        janela['-ATIVIDADE_PRINCIPAL-'].update(atvd_principal); janela['-ATIVIDADES_SECUNDARIAS-'].update(atvdSECU)
-        janela['-SITUACAO_ATUAL-'].update(sit_atual); janela['-LOGRADOURO-'].update(rua)
-        janela['-NUMERO-'].update(numero); janela['-BAIRRO-'].update(bairro); janela['-COMPLEMENTO-'].update(complemento)
-        janela['-UF-'].update(uf); janela['-EMAIL-'].update(email)
-        janela['-TELEFONE-'].update(telefone); janela['-SOCIO_ADM-'].update(socio_adm)
-        janela['-SOCIOS-'].update("Deu certo")
         
         
         
